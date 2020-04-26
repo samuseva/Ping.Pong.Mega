@@ -47,10 +47,25 @@ public class Client {
         name = sb.toString();
         /**
          * Подключаемся к серверу
+         * Cериализация в Socket
          */
         try (Socket socket = new Socket(serverIp, tcpPort);
              ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
-             ObjectInputStream input = new ObjectInputStream(socket.getInputStream())) {
+             ObjectInputStream input = new ObjectInputStream(socket.getInputStream())) 
+            /**
+             *  Сериализация в файл
+             *  ObjectOutputStream o = new ObjectOutputStream(new FileOutputStream("filename"))
+             *  ObjectInputStream i = new ObjectInputStream(new FileInputStream("filename"))
+             *
+             *  Сериализация в ByteArray  
+             *  ObjectOutputStream o = new ObjectOutputStream(new ByteArrayOutputStream());
+             *  ObjectInputStream i = new ObjectInputStream(new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
+             *  
+             *  Запиcь/чтение
+             *  o.writeObject(ball);
+             *  Ball b = (Ball) i.readObject()
+             */        
+        {
             System.out.println("Client " + name + " connected to server");
             /**
              *  Создаём init ball и отправляем его на сервер
